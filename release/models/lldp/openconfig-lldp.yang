@@ -25,7 +25,15 @@ module openconfig-lldp {
     "This module defines configuration and operational state data
     for the LLDP protocol.";
 
-  oc-ext:openconfig-version "1.0.0";
+  oc-ext:openconfig-version "1.1.0";
+
+  revision "2026-04-14" {
+    description
+      "Add LLDP neighbor state leaves for LLDP-MED inventory serial
+      number, IEEE 802.1 port VLAN ID, and IEEE 802.3 link aggregation
+      and max frame size.";
+    reference "1.1.0";
+  }
 
   revision "2026-01-14" {
     description
@@ -361,6 +369,54 @@ module openconfig-lldp {
         list structure to accomodate multiple addresses and distinct
         typing to pair up with the 802.1AB Management Address TLV
         specification.";
+    }
+
+    leaf med-inventory-serial-number {
+      type string;
+      description
+        "The serial number of the remote device as advertised in
+        the LLDP-MED Inventory - Serial Number TLV.";
+      reference
+        "ANSI/TIA-1057 Section 10.2.6.2";
+    }
+
+    leaf port-vlan-id {
+      type uint16;
+      description
+        "The port VLAN identifier (PVID) advertised by the
+        neighbor in the IEEE 802.1 Port VLAN ID TLV.";
+      reference
+        "IEEE 802.1Q Annex D";
+    }
+
+    leaf link-aggregation-status {
+      type uint8;
+      description
+        "The link aggregation status of the neighbor port as
+        advertised in the IEEE 802.3 Link Aggregation TLV.
+        Bit 0 indicates aggregation capability, bit 1 indicates
+        aggregation status.";
+      reference
+        "IEEE 802.1AB-2005 Annex G.4";
+    }
+
+    leaf link-aggregation-port-id {
+      type uint32;
+      description
+        "The aggregated port identifier of the neighbor port as
+        advertised in the IEEE 802.3 Link Aggregation TLV.";
+      reference
+        "IEEE 802.1AB-2005 Annex G.4";
+    }
+
+    leaf max-frame-size {
+      type uint16;
+      description
+        "The maximum frame size in octets supported by the
+        neighbor port as advertised in the IEEE 802.3 Maximum
+        Frame Size TLV.";
+      reference
+        "IEEE 802.1AB-2005 Annex G.5";
     }
   }
 
