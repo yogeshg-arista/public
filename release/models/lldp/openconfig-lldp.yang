@@ -12,7 +12,7 @@ module openconfig-lldp {
   import openconfig-yang-types { prefix oc-yang; }
   import openconfig-inet-types { prefix oc-inet; }
   import openconfig-extensions { prefix oc-ext; }
-  import openconfig-vlan-types { prefix oc-vlan-types; }
+
 
 
   // meta
@@ -380,19 +380,28 @@ module openconfig-lldp {
     }
 
     leaf port-vlan-id {
-      type oc-vlan-types:vlan-id;
+      type uint16 {
+        range "0..4094";
+      }
       description
         "The port VLAN identifier advertised by the
-        neighbor in the IEEE 802.1 Port VLAN ID TLV.";
+        neighbor in the IEEE 802.1 Port VLAN ID TLV. A value of 0
+        indicates that the port is not VLAN-aware.";
     }
 
-    leaf link-aggregation-status {
-      type uint8;
+    leaf link-aggregation-capable {
+      type boolean;
       description
-        "The link aggregation status of the neighbor port as
-        advertised in the IEEE 802.3 Link Aggregation TLV.
-        Bit 0 indicates aggregation capability, bit 1 indicates
-        aggregation status.";
+        "Indicates whether the neighbor port is capable of being
+        aggregated, as advertised in the IEEE 802.3 Link Aggregation
+        TLV.";
+    }
+
+    leaf link-aggregation-enabled {
+      type boolean;
+      description
+        "Indicates whether the neighbor port is currently aggregated,
+        as advertised in the IEEE 802.3 Link Aggregation TLV.";
     }
 
     leaf link-aggregation-port-id {
