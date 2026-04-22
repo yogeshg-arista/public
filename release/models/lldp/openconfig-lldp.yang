@@ -14,7 +14,6 @@ module openconfig-lldp {
   import openconfig-extensions { prefix oc-ext; }
 
 
-
   // meta
   organization "OpenConfig working group";
 
