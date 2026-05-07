@@ -33,9 +33,9 @@ module openconfig-lldp {
       "Add LLDP neighbor state leaves for LLDP-MED inventory serial
       number, IEEE 802.1 port VLAN ID, and IEEE 802.3 link aggregation
       and max frame size.";
-        reference "1.2.0";
+    reference "1.2.0";
   }
-  
+
   revision "2026-04-06" {
     description
       "Add global TTL configuration/state leaf, interface port-description and custom-tlv-names leaves, custom TLV name leaf, global custom-tlvs list, and add interface counter timestamps for LLDP.";
@@ -412,26 +412,30 @@ module openconfig-lldp {
         indicates that the port is not VLAN-aware.";
     }
 
-    leaf link-aggregation-capable {
-      type boolean;
+    container link-aggregation {
       description
-        "Indicates whether the neighbor port is capable of being
-        aggregated, as advertised in the IEEE 802.3 Link Aggregation
-        TLV.";
-    }
+        "Link aggregation state advertised by the neighbor in
+        the IEEE 802.3 Link Aggregation TLV.";
 
-    leaf link-aggregation-enabled {
-      type boolean;
-      description
-        "Indicates whether the neighbor port is currently aggregated,
-        as advertised in the IEEE 802.3 Link Aggregation TLV.";
-    }
+      leaf capable {
+        type boolean;
+        description
+          "Indicates whether the neighbor port is capable of being
+          aggregated.";
+      }
 
-    leaf link-aggregation-port-id {
-      type uint32;
-      description
-        "The aggregated port identifier of the neighbor port as
-        advertised in the IEEE 802.3 Link Aggregation TLV.";
+      leaf enabled {
+        type boolean;
+        description
+          "Indicates whether the neighbor port is currently
+          aggregated.";
+      }
+
+      leaf port-id {
+        type uint32;
+        description
+          "The aggregated port identifier of the neighbor port.";
+      }
     }
 
     leaf max-frame-size {
